@@ -1,0 +1,26 @@
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type FileMetadata = 
+ record {
+   downloadLink: text;
+   encryptionKey: text;
+   filePath: text;
+   id: text;
+   originalFilename: text;
+   size: nat;
+   uploadTimestamp: int;
+ };
+service : {
+  deleteFile: (id: text) -> (bool);
+  dropFileReference: (path: text) -> ();
+  getFileMetadata: (id: text) -> (opt FileMetadata) query;
+  getFileReference: (path: text) -> (FileReference) query;
+  listAllFiles: () -> (vec FileMetadata) query;
+  listFileReferences: () -> (vec FileReference) query;
+  registerFileReference: (path: text, hash: text) -> ();
+  saveFileMetadata: (id: text, originalFilename: text, size: nat, filePath:
+   text, encryptionKey: text) -> (text);
+}
